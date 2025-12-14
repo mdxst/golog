@@ -54,7 +54,7 @@ func colorePerTitolo(t string) string {
 func coloreRandom(seed string) string {
 	return strings.ReplaceAll(settatoreColore,
 		placeholderColoreInSettatoreColore,
-		strconv.Itoa(numeroRandom(hash(seed), 30, 97)))
+		strconv.Itoa(numeroRandom(hash(seed), 90, 97)))
 }
 
 func hash(s string) int64 {
