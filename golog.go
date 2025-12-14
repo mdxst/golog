@@ -3,6 +3,7 @@ package golog
 import (
 	"fmt"
 	"time"
+	"os"
 )
 
 const lvlErrori = 0     // log di errore
@@ -29,9 +30,15 @@ func Log(titolo string, msg string, lvl int) string {
 }
 
 // log di errore
-func LogE(err error) string {
+func LogE(err error, quitta bool) string {
 	if err != nil { // FIXME: ridondante (?)
-		return logga(TitoloLogE, err.Error(), Rosso, 0)
+		ret := logga(TitoloLogE, err.Error(), Rosso, 0)
+
+		if quitta {
+			os.Exit(1)
+		}
+
+		return ret
 	}
 	return ""
 }
