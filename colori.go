@@ -9,7 +9,7 @@ import (
 
 const (
 	placeholderColoreInSettatoreColore = "X"       // nella str. sotto
-	settatoreColore                    = "\033[Xm" // rimpiazzare x con un numero da 30 [nero]
+	settatoreColore                    = "\x1b[38;5;Xm" // rimpiazzare x con un numero da 30 [nero]
 	// a 97 [bianco]
 	chiusuraColore         = "\033[0m"
 	troncamentoTitoloCache = 12 // in caratteri, per la mappa "cacheColori"
@@ -54,7 +54,7 @@ func colorePerTitolo(t string) string {
 func coloreRandom(seed string) string {
 	return strings.ReplaceAll(settatoreColore,
 		placeholderColoreInSettatoreColore,
-		strconv.Itoa(numeroRandom(hash(seed), 90, 97)))
+		strconv.Itoa(numeroRandom(hash(seed), 1, 255)))
 }
 
 func hash(s string) int64 {
