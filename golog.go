@@ -12,8 +12,8 @@ var TitoloLogE = "ERRORE"      // log di errore
 var TitoloLogW = "Attenzione!" // log di attenzione
 
 var Prefisso = "-- LOG: " // esportato, personalizzabile
-var SepTitoloEMsg = ">"
-var Suffisso = "--" // =
+var SepTitoloEMsg = " > "
+var Suffisso = " --" // =
 var LivelloMax = 0  // =. default: solo importanti (0). Sarebbe il massimo
 // livello di cui log viene mostrato, dove 0 è il più importante, e il 3 debug
 
@@ -24,36 +24,41 @@ var StampaData = true
 var FormatoData = "02-01-2006"
 
 // log comune (debug e non, lo decidi da "lvl", da 0 a 3)
-func Log(titolo string, msg string, lvl int) {
-	logga(titolo, msg, colorePerTitolo(titolo), lvl)
+func Log(titolo string, msg string, lvl int) string {
+	return logga(titolo, msg, colorePerTitolo(titolo), lvl)
 }
 
 // log di errore
-func LogE(err error) {
+func LogE(err error) string {
 	if err != nil { // FIXME: ridondante (?)
-		logga(TitoloLogE, err.Error(), Rosso, 0)
+		return logga(TitoloLogE, err.Error(), Rosso, 0)
 	}
+	return ""
 }
 
 // log di attenzione
-func LogW(msg string) {
-	logga(TitoloLogW, msg, Giallo, 0)
+func LogW(msg string) string {
+	return logga(TitoloLogW, msg, Giallo, 0)
 }
 
 // prefissa e suffissa automaticamente, gestisce colori, comprende lvl
-func logga(titolo string, msg string, coloreTitolo string, lvl int) {
-	if lvl > LivelloMax {
+func logga(titolo string, msg string, coloreTitolo string, lvl int) string {
+	log := ""
+	if lvl >= LivelloMax {
+		log += Prefisso
 		if StampaOra {
-			fmt.Printf("%s%s", ora(), SepDataOra)
+			log += fmt.Sprintf("%s%s", ora(), SepDataOra)
 		}
 
 		if StampaData {
-			fmt.Printf("%s%s", data(), SepDataOra)
+			log += fmt.Sprintf("%s%s", data(), SepDataOra)
 		}
 
-		fmt.Println(Prefisso, coloreTitolo, titolo, chiusuraColore,
-			SepTitoloEMsg, msg, Suffisso)
+		log += fmt.Sprint(coloreTitolo, titolo, chiusuraColore,
+			SepTitoloEMsg, msg, Suffisso, "\n")
 	}
+	fmt.Print(log)
+	return log
 }
 
 // ritorna (str) ora formattata come FormatoOra
