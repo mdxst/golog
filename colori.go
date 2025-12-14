@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	placeholderColoreInSettatoreColore = "X"       // nella str. sotto
+	placeholderColoreInSettatoreColore = "X"            // nella str. sotto
 	settatoreColore                    = "\x1b[38;5;Xm" // rimpiazzare x con un numero da 30 [nero]
 	// a 97 [bianco]
 	chiusuraColore         = "\033[0m"
