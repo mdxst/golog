@@ -30,12 +30,14 @@ func Log(titolo string, msg string, lvl int) string {
 }
 
 // log di errore
-func LogE(err error, quitta bool) string {
+func LogE(err error, quitta ...bool) string {
 	if err != nil { // FIXME: ridondante (?)
 		ret := logga(TitoloLogE, err.Error(), Rosso, 0)
 
-		if quitta {
-			os.Exit(1)
+		if len(quitta) > 1 {
+			if quitta[0] == true {
+				os.Exit(1)
+			}
 		}
 
 		return ret
