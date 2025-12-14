@@ -2,8 +2,8 @@ package golog
 
 import (
 	"fmt"
-	"time"
 	"os"
+	"time"
 )
 
 const lvlErrori = 0     // log di errore
@@ -15,7 +15,7 @@ var TitoloLogW = "Attenzione!" // log di attenzione
 var Prefisso = "-- LOG: " // esportato, personalizzabile
 var SepTitoloEMsg = " > "
 var Suffisso = " --" // =
-var LivelloMax = 0  // =. default: solo importanti (0). Sarebbe il massimo
+var LivelloMax = 0   // =. default: solo importanti (0). Sarebbe il massimo
 // livello di cui log viene mostrato, dove 0 è il più importante, e il 3 debug
 
 var SepDataOra = " | "

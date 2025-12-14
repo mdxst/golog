@@ -1,10 +1,10 @@
 package golog
 
 import (
+	"crypto/sha1"
 	"math/rand"
 	"strconv"
 	"strings"
-	"crypto/sha1"
 )
 
 const (
@@ -15,7 +15,7 @@ const (
 	troncamentoTitoloCache = 12 // in caratteri, per la mappa "cacheColori"
 	// [chiave]
 
-	Rosso = "\033[31m"
+	Rosso  = "\033[31m"
 	Giallo = "\033[33m"
 )
 
@@ -60,9 +60,9 @@ func coloreRandom(seed string) string {
 func hash(s string) int64 {
 	daConvertire := sha1.Sum([]byte(s))
 	ret := int64(0)
-    	for _, b := range daConvertire {
-        	ret = (ret << 8) | int64(b)
-    	}
+	for _, b := range daConvertire {
+		ret = (ret << 8) | int64(b)
+	}
 	return ret
 }
 
