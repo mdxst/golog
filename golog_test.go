@@ -5,7 +5,7 @@ import (
 )
 
 func TestLog(t *testing.T) {
-	log := Log("dddd", "test", 0)
+	log := Log("DEBUG", "test", 0)
 	t.Logf("output di Log(\"DEBUG\", \"test\", 0) era %v", log)
 	// t.Errorf(`Hello("Gladys") = %q, %v, want match for %#q, nil`, msg, err, want)
 }
