@@ -28,6 +28,12 @@ var cacheColori map[string]string // map[titolo cappato a X car]colore
 //     randomicamente)
 //   - sennò, generiamo un colore random e lo immagazziniamo in cache
 func colorePerTitolo(t string) string {
+	// primaditutto verifichiamo se la mappa è stata creata
+	if cacheColori == nil {
+		// è nil!! inizializziamola!
+		cacheColori = make(map[string]string)
+	}
+
 	// cappiamo il titolo a X caratteri
 	if len(t) > troncamentoTitoloCache {
 		t = t[0:troncamentoTitoloCache] // TODO: testare!!! (out of
