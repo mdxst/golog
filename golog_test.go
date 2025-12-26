@@ -28,3 +28,20 @@ func TestLogW(t *testing.T) {
 	log := LogW("test", "test1", "dovrebbe", "essere", "staccato!")
 	t.Logf("output di LogW(\"test\") era %v", log)
 }
+
+func TestLogI(t *testing.T) {
+	LivelloMax = 1
+	t.Logf("impostato LivelloMax a 1.")
+	//t.Errorf(`Hello("Gladys") = %q, %v, want match for %#q, nil`, msg, err, want)
+
+	log := LogI("test", "test1", "dovrebbe", "essere", "staccato!")
+	t.Logf("output di LogW(\"test\") era %v", log)
+}
+
+func TestLogD(t *testing.T) {
+	LivelloMax = 3
+	t.Logf("impostato LivelloMax a 3.")
+	//t.Errorf(`Hello("Gladys") = %q, %v, want match for %#q, nil`, msg, err, want)
+	log := LogD("test", "test1", "dovrebbe", "essere", "staccato!")
+	t.Logf("output di LogW(\"test\") era %v", log)
+}

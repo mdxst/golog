@@ -9,6 +9,8 @@ import (
 
 const lvlErrori = 0     // log di errore
 const lvlAttenzione = 0 // log di attenzione
+const lvlInfo = 1       // log di errore
+const lvlDebug = 3      // log di attenzione
 
 var TitoloLogE = "ERRORE"      // log di errore
 var TitoloLogW = "Attenzione!" // log di attenzione
@@ -36,7 +38,7 @@ func Log(titolo, msg string, lvl int) string {
 // log di errore
 func LogE(err error, quitta ...bool) string {
 	if err != nil { // FIXME: ridondante (?)
-		ret := logga(TitoloLogE, Rosso, 0, err.Error())
+		ret := logga(TitoloLogE, rosso, lvlErrori, err.Error())
 
 		if len(quitta) > 1 {
 			if quitta[0] == true {
@@ -51,17 +53,17 @@ func LogE(err error, quitta ...bool) string {
 
 // log di attenzione
 func LogW(msg ...string) string {
-	return logga(TitoloLogW, Giallo, 0, msg...)
+	return logga(TitoloLogW, giallo, lvlAttenzione, msg...)
 }
 
 // log di info
 func LogI(msg ...string) string {
-	return logga(TitoloLogI, Bianco, 1, msg...)
+	return logga(TitoloLogI, verde, lvlInfo, msg...)
 }
 
 // log di DEBUG
 func LogD(msg ...string) string {
-	return logga(TitoloLogD, Azzurro, 3, msg...)
+	return logga(TitoloLogD, ciano, lvlDebug, msg...)
 }
 
 // prefissa e suffissa automaticamente, gestisce colori, comprende lvl
