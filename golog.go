@@ -58,7 +58,7 @@ func LogW(msg ...string) string {
 // prefissa e suffissa automaticamente, gestisce colori, comprende lvl
 func logga(titolo string, msg string, coloreTitolo string, lvl int) string {
 	log := ""
-	if lvl >= LivelloMax {
+	if lvl <= LivelloMax {
 		log += Prefisso
 		if StampaOra {
 			log += fmt.Sprintf("%s%s", ora(), SepDataOra)
