@@ -15,8 +15,10 @@ const (
 	troncamentoTitoloCache = 12 // in caratteri, per la mappa "cacheColori"
 	// [chiave]
 
-	Rosso  = "\033[31m"
-	Giallo = "\033[33m"
+	Rosso   = "\033[31m"
+	Giallo  = "\033[33m"
+	Bianco  = "\033[97m"
+	Azzurro = "\033[36m" // ciano
 )
 
 var cacheColori map[string]string // map[titolo cappato a X car]colore

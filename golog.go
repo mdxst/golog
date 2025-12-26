@@ -3,8 +3,8 @@ package golog
 import (
 	"fmt"
 	"os"
-	"time"
 	"strings"
+	"time"
 )
 
 const lvlErrori = 0     // log di errore
@@ -12,12 +12,14 @@ const lvlAttenzione = 0 // log di attenzione
 
 var TitoloLogE = "ERRORE"      // log di errore
 var TitoloLogW = "Attenzione!" // log di attenzione
+var TitoloLogI = "Info"        // log di informazione
+var TitoloLogD = "DEBUG"       // log di debug
 
 var Prefisso = "-- LOG: " // esportato, personalizzabile
 var SepTitoloEMsg = " > "
-var Suffisso = " --" // =
+var Suffisso = " --"  // =
 var SepMultiStr = " " // default: spazio
-var LivelloMax = 0   // =. default: solo importanti (0). Sarebbe il massimo
+var LivelloMax = 0    // =. default: solo importanti (0). Sarebbe il massimo
 // livello di cui log viene mostrato, dove 0 è il più importante, e il 3 debug
 
 var SepDataOra = " | "
@@ -50,6 +52,16 @@ func LogE(err error, quitta ...bool) string {
 // log di attenzione
 func LogW(msg ...string) string {
 	return logga(TitoloLogW, Giallo, 0, msg...)
+}
+
+// log di info
+func LogI(msg ...string) string {
+	return logga(TitoloLogI, Bianco, 1, msg...)
+}
+
+// log di DEBUG
+func LogD(msg ...string) string {
+	return logga(TitoloLogD, Azzurro, 3, msg...)
 }
 
 // prefissa e suffissa automaticamente, gestisce colori, comprende lvl
