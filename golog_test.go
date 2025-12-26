@@ -19,12 +19,12 @@ func TestLogVuoto(t *testing.T) {
 
 func TestLogE(t *testing.T) {
 	//t.Errorf(`Hello("Gladys") = %q, %v, want match for %#q, nil`, msg, err, want)
-	log := LogE(errors.New("test"))
+	log := LogE(errors.New("test a a a errore finto!"))
 	t.Logf("output di LogE(err) era %v", log)
 }
 
 func TestLogW(t *testing.T) {
 	//t.Errorf(`Hello("Gladys") = %q, %v, want match for %#q, nil`, msg, err, want)
-	log := LogW("test")
+	log := LogW("test", "test1", "dovrebbe", "essere", "staccato!")
 	t.Logf("output di LogW(\"test\") era %v", log)
 }
