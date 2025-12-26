@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"time"
+	"strings"
 )
 
 const lvlErrori = 0     // log di errore
@@ -46,8 +47,12 @@ func LogE(err error, quitta ...bool) string {
 }
 
 // log di attenzione
-func LogW(msg string) string {
-	return logga(TitoloLogW, msg, Giallo, 0)
+func LogW(msg ...string) string {
+	var b strings.Builder
+	for _, p := range msg {
+		b.WriteString(p)
+	}
+	return logga(TitoloLogW, b.String(), Giallo, 0)
 }
 
 // prefissa e suffissa automaticamente, gestisce colori, comprende lvl
