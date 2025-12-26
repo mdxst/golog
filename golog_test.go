@@ -8,7 +8,7 @@ import (
 func TestLog(t *testing.T) {
 	LivelloMax = 0
 	t.Logf("impostato LivelloMax a 0.")
-	log := Log("DEBUG", "test", 0)
+	log := Log("random!!", "test", 0)
 	t.Logf("output di Log(\"DEBUG\", \"test\", 0) era %v", log)
 	// t.Errorf(`Hello("Gladys") = %q, %v, want match for %#q, nil`, msg, err, want)
 }
