@@ -1,7 +1,7 @@
 package golog
 
 import (
-	"crypto/sha1"
+	"hash/adler32"
 	"math/rand"
 	"strconv"
 	"strings"
@@ -56,19 +56,14 @@ func colorePerTitolo(t string) string {
 func coloreRandom(seed string) string {
 	return strings.ReplaceAll(settatoreColore,
 		placeholderColoreInSettatoreColore,
-		strconv.Itoa(numeroRandom(hash(seed), 1, 255)))
+		strconv.Itoa(numeroRandom(hash(seed), 60, 255)))
 }
 
-func hash(s string) int64 {
-	daConvertire := sha1.Sum([]byte(s))
-	ret := int64(0)
-	for _, b := range daConvertire {
-		ret = (ret << 8) | int64(b)
-	}
-	return ret
+func hash(s string) uint32 {
+	return adler32.Checksum([]byte(s))
 }
 
-func numeroRandom(seed int64, min int, max int) int {
-	rand.Seed(seed)
+func numeroRandom(seed uint32, min int, max int) int {
+	rand.Seed(int64(seed))
 	return min + rand.Intn(max-min)
 }
