@@ -2,7 +2,6 @@ package golog
 
 import (
 	"hash/adler32"
-	"math/rand"
 	"strconv"
 	"strings"
 )
@@ -17,7 +16,7 @@ const (
 
 	rosso  = "\033[31m"
 	giallo = "\033[33m"
-	verde = "\033[32m"
+	verde  = "\033[32m"
 	ciano  = "\033[36m"
 )
 
@@ -53,17 +52,24 @@ func colorePerTitolo(t string) string {
 	}
 }
 
+// RITORNA GIÀ UNA ESCAPE ANSI PRONTA!
+//
+// non proprio random.... a stesso seed corrisponderà sempre stesso coloreRandom()
 func coloreRandom(seed string) string {
 	return strings.ReplaceAll(settatoreColore,
 		placeholderColoreInSettatoreColore,
-		strconv.Itoa(numeroRandom(hash(seed), 60, 255)))
+		strconv.Itoa(nDaHash(hash(seed), 60, 254)),
+	)
 }
 
 func hash(s string) uint32 {
 	return adler32.Checksum([]byte(s))
 }
 
-func numeroRandom(seed uint32, min int, max int) int {
-	rand.Seed(int64(seed))
-	return min + rand.Intn(max-min)
+func nDaHash(h uint32, min, max int) int {
+	// operazioni a caso
+	n := (int(h/8) << 3) * 2
+
+	// facciamolo rientrare tra <min> e <max>
+	return (n % max) + min
 }
