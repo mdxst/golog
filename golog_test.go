@@ -43,7 +43,7 @@ func TestLogI(t *testing.T) {
 	//t.Errorf(`Hello("Gladys") = %q, %v, want match for %#q, nil`, msg, err, want)
 
 	log := LogI("test", "test1", "dovrebbe", "essere", "staccato!")
-	t.Logf("output di LogW(\"test\") era %v", log)
+	t.Logf("output di LogI(\"test\") era %v", log)
 }
 
 func TestLogD(t *testing.T) {
@@ -51,5 +51,13 @@ func TestLogD(t *testing.T) {
 	t.Logf("impostato LivelloMax a 6.")
 	//t.Errorf(`Hello("Gladys") = %q, %v, want match for %#q, nil`, msg, err, want)
 	log := LogD("test", "test1", "dovrebbe", "essere", "staccato!")
-	t.Logf("output di LogW(\"test\") era %v", log)
+	t.Logf("output di LogD(\"test\") era %v", log)
+}
+
+func TestLogS(t *testing.T) {
+	LivelloMax = 213
+	t.Logf("impostato LivelloMax a 213.")
+	//t.Errorf(`Hello("Gladys") = %q, %v, want match for %#q, nil`, msg, err, want)
+	log := LogS("test", "test1", "titolo dovrebbe essere \"TestLogS\"!")
+	t.Logf("output di LogS(\"test\") era %v", log)
 }

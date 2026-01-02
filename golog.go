@@ -5,12 +5,14 @@ import (
 	"os"
 	"strings"
 	"time"
+	"runtime"
 )
 
 const lvlErrori = 0     // log di errore
 const lvlAttenzione = 0 // log di attenzione
 const lvlInfo = 1       // log di errore
 const lvlDebug = 3      // log di attenzione
+const lvlSmart = 1      // LogS
 
 var TitoloLogE = "ERRORE"      // log di errore
 var TitoloLogW = "Attenzione!" // log di attenzione
@@ -64,6 +66,27 @@ func LogI(msg ...string) string {
 // log di DEBUG
 func LogD(msg ...string) string {
 	return logga(TitoloLogD, ciano, lvlDebug, msg...)
+}
+
+// log SMART: ottiene il nome della funzione chiamante e lo usa come TITOLO.
+// - LIVELLO: lvlSmart (settato a 1, al pari di LogI)
+// - VELOCITÀ: pesantuccio, lavora con gli array/slice/split... usare con
+//	moderazione.
+func LogS(msg ...string) string {
+	// ottieni nome funzione chiamante
+	pc, _, _, _ := runtime.Caller(1)
+	nCompl := runtime.FuncForPC(pc).Name() // pacchetto.nomeFunc
+	nComplSplit := strings.Split(nCompl, ".")
+	var t string
+	if len(nCompl) > 0 {
+		t = nComplSplit[len(nComplSplit)-1]
+	} else {
+		t = "??"
+	}
+	return logga(t,
+		colorePerTitolo(t),
+		lvlSmart,
+		msg...)
 }
 
 // prefissa e suffissa automaticamente, gestisce colori, comprende lvl
