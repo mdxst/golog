@@ -1,4 +1,4 @@
-# golog
+# golog 🇮🇹
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/mdxst/golog.svg)](https://pkg.go.dev/github.com/mdxst/golog)
 
