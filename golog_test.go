@@ -14,7 +14,7 @@ func TestLog(t *testing.T) {
 }
 
 func TestLogVuoto(t *testing.T) {
-	LivelloMax = -1
+	LivelloMax = -2
 	t.Logf("impostato LivelloMax a -1.")
 	//t.Errorf(`Hello("Gladys") = %q, %v, want match for %#q, nil`, msg, err, want)
 	log := Log(0, "", "")
