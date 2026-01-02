@@ -8,7 +8,7 @@ import (
 func TestLog(t *testing.T) {
 	LivelloMax = 0
 	t.Logf("impostato LivelloMax a 0.")
-	log := Log("rand!!", "test", 0)
+	log := Log(0, "rand!!", "test", ":)")
 	t.Logf("output di Log(\"DEBUG\", \"test\", 0) era %v", log)
 	// t.Errorf(`Hello("Gladys") = %q, %v, want match for %#q, nil`, msg, err, want)
 }
@@ -17,7 +17,7 @@ func TestLogVuoto(t *testing.T) {
 	LivelloMax = -1
 	t.Logf("impostato LivelloMax a -1.")
 	//t.Errorf(`Hello("Gladys") = %q, %v, want match for %#q, nil`, msg, err, want)
-	log := Log("", "", 0)
+	log := Log(0, "", "")
 	t.Logf("output di Log(\"\", \"\", 0) era %v", log)
 }
 

@@ -31,8 +31,8 @@ var StampaData = true
 var FormatoData = "02-01-2006"
 
 // log comune (debug e non, lo decidi da "lvl", da 0 a 3)
-func Log(titolo, msg string, lvl int) string {
-	return logga(titolo, colorePerTitolo(titolo), lvl, msg)
+func Log(lvl int, titolo string, msg ...string) string {
+	return logga(titolo, colorePerTitolo(titolo), lvl, msg...)
 }
 
 // log di errore
