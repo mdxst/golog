@@ -15,6 +15,7 @@ const (
 	// [chiave]
 
 	rosso  = "\033[31m"
+	viola  = "\033[35m"
 	giallo = "\033[33m"
 	verde  = "\033[32m"
 	ciano  = "\033[36m"

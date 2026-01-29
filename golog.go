@@ -9,12 +9,15 @@ import (
 )
 
 const lvlErrori = 0     // log di errore
+const lvlSicurezza = 0     // log di errore
 const lvlAttenzione = 0 // log di attenzione
 const lvlInfo = 1       // log di errore
 const lvlDebug = 3      // log di attenzione
 const lvlSmart = 1      // LogS
 
 var TitoloLogE = "ERRORE"      // log di errore
+var TitoloLogEC = "ERRORE CLIENT" // log di errore CLIENT-SIDE non fatale
+var TitoloLogSEC = "<SICUREZZA!>" // log di Sicurezza critico
 var TitoloLogW = "Attenzione!" // log di attenzione
 var TitoloLogI = "Info"        // log di informazione
 var TitoloLogD = "DEBUG"       // log di debug
@@ -34,13 +37,13 @@ var FormatoData = "02-01-2006"
 
 // log comune (debug e non, lo decidi da "lvl", da 0 a 3)
 func Log(lvl int, titolo string, msg ...string) string {
-	return logga(titolo, colorePerTitolo(titolo), lvl, msg...)
+	return logga(titolo, colorePerTitolo(titolo), "", lvl, msg...)
 }
 
 // log di errore
 func LogE(err error, quitta ...bool) string {
 	if err != nil { // FIXME: ridondante (?)
-		ret := logga(TitoloLogE, rosso, lvlErrori, err.Error())
+		ret := logga(TitoloLogE, rosso, rosso, lvlErrori, err.Error())
 
 		if len(quitta) > 1 {
 			if quitta[0] == true {
@@ -53,19 +56,30 @@ func LogE(err error, quitta ...bool) string {
 	return ""
 }
 
+// errore client (input malformato, richiesta non valida... -> per tenerne
+// anche un log su server)
+func LogEC(msg ...string) string {
+	return logga(TitoloLogEC, rosso, "", lvlErrori, msg...)
+}
+
+// log cruciale di SICUREZZA
+func LogSEC(msg ...string) string {
+	return logga(TitoloLogSEC, viola, viola, lvlSicurezza, msg...)
+}
+
 // log di attenzione
 func LogW(msg ...string) string {
-	return logga(TitoloLogW, giallo, lvlAttenzione, msg...)
+	return logga(TitoloLogW, giallo, "", lvlAttenzione, msg...)
 }
 
 // log di info
 func LogI(msg ...string) string {
-	return logga(TitoloLogI, verde, lvlInfo, msg...)
+	return logga(TitoloLogI, verde, "", lvlInfo, msg...)
 }
 
 // log di DEBUG
 func LogD(msg ...string) string {
-	return logga(TitoloLogD, ciano, lvlDebug, msg...)
+	return logga(TitoloLogD, ciano, "", lvlDebug, msg...)
 }
 
 // log SMART: ottiene il nome della funzione chiamante e lo usa come TITOLO.
@@ -85,12 +99,15 @@ func LogS(msg ...string) string {
 	}
 	return logga(t,
 		colorePerTitolo(t),
+		"",
 		lvlSmart,
 		msg...)
 }
 
 // prefissa e suffissa automaticamente, gestisce colori, comprende lvl
-func logga(titolo, coloreTitolo string, lvl int, msg ...string) string {
+//
+// SETTARE coloreMsg a "" per NON colorarlo
+func logga(titolo, coloreTitolo, coloreMsg string, lvl int, msg ...string) string {
 	// msg è composto di più stringhe (variadico), sommiamole ora! Con
 	// separatore: SepMultiStr
 	var b strings.Builder
@@ -114,8 +131,14 @@ func logga(titolo, coloreTitolo string, lvl int, msg ...string) string {
 			log += fmt.Sprintf("%s%s", data(), SepDataOra)
 		}
 
+		apertColoreMsg, chiusColoreMsg := "", ""
+		if coloreMsg != "" {
+			apertColoreMsg = coloreMsg
+			chiusColoreMsg = chiusuraColore
+		}
 		log += fmt.Sprint(coloreTitolo, titolo, chiusuraColore,
-			SepTitoloEMsg, b.String(), Suffisso, "\n")
+			SepTitoloEMsg, apertColoreMsg, b.String(),
+			chiusColoreMsg, Suffisso, "\n")
 	}
 	fmt.Print(log)
 	return log

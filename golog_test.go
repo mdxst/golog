@@ -29,6 +29,22 @@ func TestLogE(t *testing.T) {
 	t.Logf("output di LogE(err) era %v", log)
 }
 
+func TestLogEC(t *testing.T) {
+	LivelloMax = 2
+	t.Logf("impostato LivelloMax a 2.")
+	//t.Errorf(`Hello("Gladys") = %q, %v, want match for %#q, nil`, msg, err, want)
+	log := LogEC("foo bar")
+	t.Logf("output di LogEC(msg) era %v", log)
+}
+
+func TestLogSEC(t *testing.T) {
+	LivelloMax = 0
+	t.Logf("impostato LivelloMax a 0.")
+	//t.Errorf(`Hello("Gladys") = %q, %v, want match for %#q, nil`, msg, err, want)
+	log := LogSEC("finto errore di sicurezza")
+	t.Logf("output di LogSEC(msg) era %v", log)
+}
+
 func TestLogW(t *testing.T) {
 	LivelloMax = 2
 	t.Logf("impostato LivelloMax a 2.")
